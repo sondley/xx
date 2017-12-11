@@ -1,0 +1,12 @@
+"use strict";
+
+
+const Path = require('path')
+
+
+module.exports = {
+  'config': Path.resolve('sequelize', 'config.js'),
+  'migrations-path': Path.resolve('sequelize', 'migrations'),
+  'models-path': Path.resolve('sequelize', 'models'),
+  'seeders-path': Path.resolve('sequelize', 'seeders'),
+}
