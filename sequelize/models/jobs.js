@@ -19,7 +19,7 @@ function Jobs(sequelize, DataTypes) {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4
       },
-      name: {
+      title: {
         type: DataTypes.STRING,
         allowNull: false
       },
