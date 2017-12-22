@@ -31,15 +31,15 @@ const objDatabaseConfig = {
 };
 
 
-const objRolesCrudConfig = {
+const objMediaTypesCrudConfig = {
   model: 'MediaTypes',
-  path: '/roles'
+  path: '/mediatypes'
 }
 
 
 const objRolesCrudConfig = {
   model: 'Roles',
-  path: '/mediatypes'
+  path: '/roles'
 }
 
 
@@ -69,6 +69,7 @@ const objJobsCrudConfig = {
 
 const listModels = [
   objRolesCrudConfig,
+  objMediaTypesCrudConfig,
   objCategoriesCrudConfig,
   objCommentsCrudConfig,
   objHashtagsCrudConfig,
@@ -112,6 +113,7 @@ const objJwtAuth = {
 
 
 server.register([objDatabaseConfig, objUploadSingleFile], (objError) => {
+  server.register([objJwtAuth], (objError) => {
     server.register([objUsersModule], { routes: { prefix: '/users' } }, (objError) => {
       server.register([objCrudConfig, objVideosModule], (objError) => {
         if (objError) {
@@ -128,4 +130,5 @@ server.register([objDatabaseConfig, objUploadSingleFile], (objError) => {
         });
       });
     });
+  });
 });
