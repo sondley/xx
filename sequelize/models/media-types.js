@@ -1,27 +1,27 @@
 "use strict";
 
 
-module.exports = Roles;
+module.exports = MediaTypes;
 
 
 ////////////////////////////////////////////////////////////
 
 
-function Roles(sequelize, DataTypes) {
+function MediaTypes(objSequelize, objDataTypes) {
 
-  var Roles = sequelize.define(
-    'Roles',
+  const MediaTypes = objSequelize.define(
+    'MediaTypes',
     {
       id: {
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
         unique: true,
-        type: DataTypes.INTEGER,
+        type: objDataTypes.INTEGER,
         // defaultValue: DataTypes.UUIDV4
       },
       name: {
-        type: DataTypes.STRING,
+        type: objDataTypes.STRING,
         allowNull: false
       }
     },
@@ -29,8 +29,14 @@ function Roles(sequelize, DataTypes) {
       timestamps: true,
       underscored: true,
       paranoid: true,
+      associate: function(objModels) {
+        MediaTypes.hasMany(objModels.Media, {
+          foreignKey: 'type_id',
+          as: 'Medias'
+        });
+      }
     }
   );
 
-  return Roles;
+  return MediaTypes;
 };

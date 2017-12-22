@@ -19,7 +19,7 @@ exports.register = function (server, options, next) {
         config: {
           handler: (request, reply) => {
             ModelCrud.getAll(getOptions('findAll'), request).then((varResponse) => {
-              reply(varResponse);
+              reply({ statusCode: 200, results: varResponse });
             });
           }
         }
@@ -30,7 +30,7 @@ exports.register = function (server, options, next) {
         config: {
           handler: (request, reply) => {
             ModelCrud.getCount(getOptions('count'), request).then((varResponse) => {
-              reply(varResponse);
+              reply({ statusCode: 200, results: varResponse });
             });
           }
         }
@@ -41,7 +41,7 @@ exports.register = function (server, options, next) {
         config: {
           handler: (request, reply) => {
             ModelCrud.getById(getOptions('findById'), request).then((varResponse) => {
-              reply(varResponse);
+              reply({ statusCode: 200, results: varResponse });
             });
           }
         }
@@ -52,7 +52,7 @@ exports.register = function (server, options, next) {
         config: {
           handler: (request, reply) => {
             // ModelCrud.create(getOptions('create'), request).then((varResponse) => {
-            //   reply(varResponse);
+            //   reply({ statusCode: 200, results: varResponse });
             // });
 
             objSequelize.models[options.model].create(request.payload).then((objData) => {

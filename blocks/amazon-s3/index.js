@@ -29,7 +29,9 @@ class S3Client {
       s3Options: {
         accessKeyId: accessKey,
         secretAccessKey: secretKey,
-        region: "US Standard",
+        region: "s3-us-west-1",
+        s3ForcePathStyle: true,
+signatureVersion: 'v4',
         endpoint: 's3.amazonaws.com'
       },
     };
@@ -38,6 +40,7 @@ class S3Client {
 
     Object.assign(this.params, configParams || {});
     this.client = s3.createClient(this.params);
+    this.client.shouldDisableBodySigning = () => true
   }
 
 
@@ -57,11 +60,18 @@ class S3Client {
       }
     };
     return new Promise((resolve, reject) => {
+      console.log(JSON.stringify(params, null, 2));
       let uploader = this.client.uploadFile(params);
       uploader.on('end', () => {
+        console.log('dasd');
         resolve();
       });
-      uploader.on('error', () => {
+      uploader.on('progress', function() {
+        console.log("progress", uploader.progressMd5Amount,
+                  uploader.progressAmount, uploader.progressTotal);
+      });
+      uploader.on('error', (e) => {
+        console.log('dasssssssd', e);
         reject();
       });
     });

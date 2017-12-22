@@ -29,8 +29,8 @@ function Comments(objSequelize, objDataTypes) {
       underscored: true,
       paranoid: true,
       associate: function(objModels) {
-        Comments.belongsTo(objModels.Jobs, { foreignKey: { name: 'job_id', allowNull: false }, as: 'Job' });
-        // Comments.belongsTo(objModels.Media, { foreignKey: { name: 'media_id', allowNull: false }, as: 'Media' });
+        // Comments.belongsTo(objModels.Jobs, { foreignKey: { name: 'job_id', allowNull: false }, as: 'Job' });
+        Comments.belongsTo(objModels.Videos, { foreignKey: { name: 'video_id', allowNull: false }, as: 'Video' });
       }
     }
   );

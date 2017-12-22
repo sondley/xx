@@ -1,8 +1,8 @@
 "use strict";
 
 
-const JwtConfig = require('../../config').auth.jwt;
-const JwtX = require('../../blocks/jwt-x');
+const JwtConfig = require('../../../config').auth.jwt;
+const JwtX = require('../../../blocks/jwt-x');
 
 
 ////////////////////////////////////////////////////////////

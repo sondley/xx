@@ -1,55 +1,45 @@
 'use strict';
 
-// Dependencies
-const HapiAuthJwt = require('hapi-auth-jwt2');
-const Parameters = require('./parameters');
-const Moment = require('moment');
+const jwt = require('hapi-auth-jwt2');
+const UserHandler = require('../../handlers/users/handler');
+const Config = require('../../../config');
 
+exports.register = (objServer, options, next) => {
+  const objSequelize = objServer.plugins['hapi-sequelize'][Config.sequelize.database];
+  const objUserHandler = UserHandler(objSequelize);
+  
+  objServer.register(jwt, registerAuth);
 
-function validate(decoded, token, cb) {
-  let ttl = Parameters.key.tokenExpiration;
-  let diff = Moment().diff(Moment(token.iat * 1000));
+  
+  function registerAuth (err) {
+    if (err) { return next(err); }
 
-  if (decoded.authLink) {
-    if (diff > ttl) {
-      return cb(null, false);
-    }
-
-    User.findOne({_id: decoded.id}, (err, user) => {
-      if (err) {
-        return cb(err, false);
-      } else if (!user) {
-        return cb(null, false);
-      } else if (user.isVerified) {
-        return cb(null, true, user);
-      } else {
-        return cb(null, false);
-      }
+    objServer.auth.strategy('jwt', 'jwt', {
+      key: options.secret,
+      validateFunc: validate,
+      verifyOptions: {algorithms: [ 'HS256' ]}
     });
-  } else {
-    return cb(null, false);
-  }
-}
 
-// Auth jwt plugin
-const register =  (server, options, next) => {
-  server.register(HapiAuthJwt, (err) => {
-    if (err) {
-      return next(err);
-    }
-
-    server.auth.strategy('jwt', 'jwt', {
-      key: Parameters.key.privateKey,
-      validateFunc: validate
-    });
+    objServer.auth.default('jwt');
 
     return next();
-  });
+  }
+
+
+  function validate (decoded, request, cb) {
+    return objUserHandler.getById(objSequelize.models.Users, decoded.id).then((objUser) => {
+      if (!objUser) {
+        return cb(null, false);
+      }
+
+      request.auth.user = objUser;
+      return cb(null, true);
+    });
+  }
 };
 
-register.attributes = {
+
+exports.register.attributes = {
   name: 'auth-jwt',
   version: '1.0.0'
 };
-
-module.exports = register;

@@ -27,6 +27,15 @@ module.exports = {
       verify: null
     }
   },
+  amazon: {
+    s3: {
+      buckets: {
+        videos: 'fluttr-dev'
+      },
+      accessKeyId: 'AKIAIVZKXB3KSZ3JVZWQ',
+      secretAccessKey: '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'
+    }
+  },
   email: {
     defaultMailer: 'mandrill',
     from: 'Fluttr <info@fluttr.com>',

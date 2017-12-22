@@ -8,18 +8,14 @@ module.exports = {
     TEMP: 3
   },
   USER_ROLES: {
-    SUPER_ADMIN: 1,
-    ADMIN: 2,
-    USER: 3
-  },
-  QUOTE: {
-    OPEN: 1,
-    INPROGRESS: 2,
-    CLOSED: 3,
-    REJECTED: 4
+    ADMIN: 1,
+    USER: 2
   },
   LOGIN_TYPE: {
     ADMIN: 1,
     APP: 2
+  },
+  HTTP_CODE: {
+    INVALID_CREDENTIALS: 401
   }
 }

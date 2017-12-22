@@ -63,8 +63,8 @@ function loadModels(strModelsPath, objSequelize) {
  */
 function loadModelsAssociation() {
   Object.keys(objDb).forEach((modelName) => {
-    if (objDb[modelName].hasOwnProperty('associate')) {
-      objDb[modelName].associate(objDb);
+    if (objDb[modelName].options.hasOwnProperty('associate')) {
+      objDb[modelName].options.associate(objDb);
     }
   });
 }

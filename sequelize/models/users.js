@@ -1,6 +1,8 @@
 "use strict";
 
 
+const ENUMS = require('../../app/enums');
+
 module.exports = Users;
 
 
@@ -20,10 +22,12 @@ function Users(objSequelize, objDataTypes) {
         defaultValue: objDataTypes.UUIDV4
       },
       firstName: {
+        field: "first_name",
         type: objDataTypes.STRING,
         allowNull: true,
       },
       lastName: {
+        field: "last_name",
         type: objDataTypes.STRING,
         allowNull: true,
       },
@@ -45,7 +49,12 @@ function Users(objSequelize, objDataTypes) {
         type: objDataTypes.TEXT,
         allowNull: true,
       },
+      password: {
+        type: objDataTypes.STRING,
+        allowNull: false
+      },
       isAccountVerify: {
+        field: "is_account_verify",
         type: objDataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false
@@ -56,7 +65,7 @@ function Users(objSequelize, objDataTypes) {
       underscored: true,
       paranoid: true,
       associate: function(objModels) {
-        Users.belongsTo(objModels.UserRoles, { foreignKey: { name: 'role_id', allowNull: false, defaultValue: ENUMS.USER_ROLES.USER }, as: 'Role' });
+        Users.belongsTo(objModels.Roles, { foreignKey: { name: 'role_id', allowNull: false, defaultValue: ENUMS.USER_ROLES.USER }, as: 'Role' });
         Users.hasMany(objModels.Tokens, {
           foreignKey: 'user_id',
           as: 'Tokens'
