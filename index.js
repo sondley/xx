@@ -14,7 +14,7 @@ const SequelizeX = require('./blocks/sequelize-x').initialize(Config.sequelize, 
 const server = new Hapi.Server();
 
 
-server.connection({ port: 3000, host: 'localhost' });
+server.connection({ port: process.env.PORT, host: '0.0.0.0' });
 
 
 const objDatabaseConfig = {
