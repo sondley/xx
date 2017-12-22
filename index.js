@@ -31,12 +31,6 @@ const objDatabaseConfig = {
 };
 
 
-const objMediaTypesCrudConfig = {
-  model: 'MediaTypes',
-  path: '/mediatypes'
-}
-
-
 const objRolesCrudConfig = {
   model: 'Roles',
   path: '/roles'
@@ -69,7 +63,6 @@ const objJobsCrudConfig = {
 
 const listModels = [
   objRolesCrudConfig,
-  objMediaTypesCrudConfig,
   objCategoriesCrudConfig,
   objCommentsCrudConfig,
   objHashtagsCrudConfig,

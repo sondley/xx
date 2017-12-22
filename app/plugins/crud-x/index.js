@@ -50,7 +50,6 @@ exports.register = function (server, options, next) {
         method: 'POST',
         path: options.path,
         config: {
-          auth: false,
           handler: (request, reply) => {
             // ModelCrud.create(getOptions('create'), request).then((varResponse) => {
             //   reply({ statusCode: 200, results: varResponse });
