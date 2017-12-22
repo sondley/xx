@@ -3,11 +3,11 @@
 
 module.exports = {
   sequelize: {
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    username: process.env.DB_USERNAME,
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
+    database: 'd893j70dphfpjb' || process.env.DB_NAME,
+    password: '69f185494c7941cbb7650468f86049679db132beef3d46d0954ab5162bd753f3' || process.env.DB_PASSWORD,
+    username: 'lvrnxokppfmjns' || process.env.DB_USERNAME,
+    host: 'ec2-184-72-228-128.compute-1.amazonaws.com' || process.env.DB_HOST,
+    port: 5432 || process.env.DB_PORT,
     dialect: "postgres",
     logging: true
   },
@@ -23,6 +23,15 @@ module.exports = {
       },
       secret: process.env.JWT_SECRET,
       verify: null
+    }
+  },
+  amazon: {
+    s3: {
+      buckets: {
+        videos: 'fluttr-dev'
+      },
+      accessKeyId: 'AKIAIVZKXB3KSZ3JVZWQ',
+      secretAccessKey: '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'
     }
   },
   email: {
