@@ -14,7 +14,15 @@ const SequelizeX = require('./blocks/sequelize-x').initialize(Config.sequelize, 
 const server = new Hapi.Server();
 
 
-server.connection({ routes: { cors: false }, port: process.env.PORT, host: '0.0.0.0' });
+server.connection({
+  routes: {
+    cors: {
+      origin: ['*'],
+      headers: ["Accept", "Authorization", "Content-Type", "If-None-Match", "Accept-language"]
+    }
+  },
+  port: process.env.PORT, host: '0.0.0.0'
+});
 
 
 const objDatabaseConfig = {
