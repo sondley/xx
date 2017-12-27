@@ -14,7 +14,7 @@ const SequelizeX = require('./blocks/sequelize-x').initialize(Config.sequelize, 
 const server = new Hapi.Server();
 
 
-server.connection({ port: process.env.PORT, host: '0.0.0.0' });
+server.connection({ routes: { cors: false }, port: process.env.PORT, host: '0.0.0.0' });
 
 
 const objDatabaseConfig = {
@@ -103,6 +103,7 @@ const objJwtAuth = {
     secret: Config.auth.jwt.secret
   }
 }
+
 
 
 server.register([objDatabaseConfig, objUploadSingleFile], (objError) => {
