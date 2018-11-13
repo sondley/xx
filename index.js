@@ -18,7 +18,7 @@ server.connection({
       headers: ["Accept", "Authorization", "Content-Type", "If-None-Match", "Accept-language"]
     }
   },
-  port: 3000
+  port: 8000
 });
 
 
@@ -92,7 +92,6 @@ server.register([objDatabaseConfig], (objError) => {
       throw objError;
     }
 
-    console.log("heloo----Sondley----");
 
     server.start((objError) => {
       server.table()[0].table.forEach((route) => console.log(`${route.method}\t${route.path}`));
@@ -100,7 +99,6 @@ server.register([objDatabaseConfig], (objError) => {
       if (objError) {
           throw objError;
       }
-      server.log('info', 'Server running at: ' + server.info.uri);
     });
   });
   
