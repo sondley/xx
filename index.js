@@ -8,13 +8,18 @@ const Config = require('./config');
 
 const UploadSingleFilePlugin = require('./app/plugins/upload-single-file');
 const SequelizeX = require('./blocks/sequelize-x').initialize(Config.sequelize, Config.sequelize, Config.modelsDir);
-const server = new Hapi.Server({  
-  host: 'api-facturationx.herokuapp.com',
-  port: 3000
-})
+const server = new Hapi.Server();
 const CrudX = require('./app/plugins/crud-x');
 
-
+server.connection({
+  routes: {
+    cors: {
+      origin: ['*'],
+      headers: ["Accept", "Authorization", "Content-Type", "If-None-Match", "Accept-language"]
+    }
+  },
+  port: 8000
+});
 
 
 const objDatabaseConfig = {
@@ -89,11 +94,12 @@ server.register([objDatabaseConfig], (objError) => {
 
 
     server.start((objError) => {
-      //server.table()[0].table.forEach((route) => console.log(`${route.method}\t${route.path}`));
+      server.table()[0].table.forEach((route) => console.log(`${route.method}\t${route.path}`));
 
       if (objError) {
           throw objError;
       }
+      server.log('info', 'Server running at: ' + server.info.uri);
     });
   });
   
