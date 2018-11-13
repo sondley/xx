@@ -18,7 +18,7 @@ server.connection({
       headers: ["Accept", "Authorization", "Content-Type", "If-None-Match", "Accept-language"]
     }
   },
-  port: process.env.PORT || 3000, host: 'localhost';
+  port: process.env.PORT || 3000, host: 'localhost'
 });
 
 
