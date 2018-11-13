@@ -18,7 +18,7 @@ server.connection({
       headers: ["Accept", "Authorization", "Content-Type", "If-None-Match", "Accept-language"]
     }
   },
-  port: 3000, host: '127.0.0.1'
+  port: 3000, host: 'localhost'
 });
 
 
