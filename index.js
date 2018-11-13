@@ -9,7 +9,7 @@ const Config = require('./config');
 const UploadSingleFilePlugin = require('./app/plugins/upload-single-file');
 const SequelizeX = require('./blocks/sequelize-x').initialize(Config.sequelize, Config.sequelize, Config.modelsDir);
 const server = new Hapi.Server();
-
+const CrudX = require('./app/plugins/crud-x');
 
 server.connection({
   routes: {
@@ -18,7 +18,7 @@ server.connection({
       headers: ["Accept", "Authorization", "Content-Type", "If-None-Match", "Accept-language"]
     }
   },
-  port: process.env.PORT, host: '0.0.0.0'
+  port: 3000, host: '127.0.0.1'
 });
 
 
@@ -36,42 +36,42 @@ const objDatabaseConfig = {
 };
 
 
-const objRolesCrudConfig = {
-  model: 'Roles',
-  path: '/roles'
+const objUsersCrudConfig = {
+  model: 'Users',
+  path: '/_users'
 }
 
 
-const objCategoriesCrudConfig = {
-  model: 'Categories',
-  path: '/categories'
+const objCustomersCrudConfig = {
+  model: 'Customers',
+  path: '/customers'
 }
 
 
-const objCommentsCrudConfig = {
-  model: 'Comments',
-  path: '/comments'
+const objPurchasesCrudConfig = {
+  model: 'Purchases',
+  path: '/purchases'
 }
 
 
-const objHashtagsCrudConfig = {
-  model: 'Hashtags',
-  path: '/hashtags'
+const objProvidersCrudConfig = {
+  model: 'Providers',
+  path: '/providers'
 }
 
 
-const objJobsCrudConfig = {
-  model: 'Jobs',
-  path: '/jobs'
+const objSalesCrudConfig = {
+  model: 'Sales',
+  path: '/sales'
 }
 
 
 const listModels = [
-  objRolesCrudConfig,
-  objCategoriesCrudConfig,
-  objCommentsCrudConfig,
-  objHashtagsCrudConfig,
-  objJobsCrudConfig
+  objSalesCrudConfig,
+  objProvidersCrudConfig,
+  objCustomersCrudConfig,
+  objUsersCrudConfig,
+  objPurchasesCrudConfig
 ];
 
 
@@ -83,51 +83,25 @@ const objCrudConfig = {
   }
 }
 
+server.log('info', 'Server running at: ' + server.info.uri);
 
-const objVideosModule = {
-  register: VideosHandler,
-  routes: { prefix: '/videos' }
-}
+server.register([objDatabaseConfig], (objError) => {
 
+  server.register([objCrudConfig], (objError) => {
+    if (objError) {
+      throw objError;
+    }
 
-const objUsersModule = {
-  register: UsersHandler
-}
+    console.log("heloo----Sondley----");
 
-const objUploadSingleFile = {
-  register: UploadSingleFilePlugin,
-  options: {
-    destination: Config.videosDir
-  }
-}
+    server.start((objError) => {
+      server.table()[0].table.forEach((route) => console.log(`${route.method}\t${route.path}`));
 
-
-const objJwtAuth = {
-  register: AuthJwtX,
-  options: {
-    secret: Config.auth.jwt.secret
-  }
-}
-
-
-
-server.register([objDatabaseConfig, objUploadSingleFile], (objError) => {
-  server.register([objJwtAuth], (objError) => {
-    server.register([objUsersModule], { routes: { prefix: '/users' } }, (objError) => {
-      server.register([objCrudConfig, objVideosModule], (objError) => {
-        if (objError) {
+      if (objError) {
           throw objError;
-        }
-
-        server.start((objError) => {
-          server.table()[0].table.forEach((route) => console.log(`${route.method}\t${route.path}`));
-
-          if (objError) {
-              throw objError;
-          }
-          server.log('info', 'Server running at: ' + server.info.uri);
-        });
-      });
+      }
+      server.log('info', 'Server running at: ' + server.info.uri);
     });
   });
+  
 });

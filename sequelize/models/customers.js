@@ -1,16 +1,16 @@
 "use strict";
 
 
-module.exports = Users;
+module.exports = Customers;
 
 
 ////////////////////////////////////////////////////////////
 
 
-function Users(objSequelize, objDataTypes) {
+function Customers(objSequelize, objDataTypes) {
 
-  const Users = objSequelize.define(
-    'Users',
+  const Customers = objSequelize.define(
+    'Customers',
     {
       id: {
         primaryKey: true,
@@ -29,22 +29,24 @@ function Users(objSequelize, objDataTypes) {
         type: objDataTypes.STRING,
         allowNull: true,
       },
-      email: {
+      direction: {
         type: objDataTypes.STRING,
         allowNull: false,
-        unique: true,
+        unique: true
       },
-      password: {
+    
+      phone: {
         type: objDataTypes.STRING,
-        allowNull: false
+        allowNull: true,
       },
     },
     {
       timestamps: true,
       underscored: true,
       paranoid: true,
+      
     }
   );
 
-  return Users;
+  return Customers;
 };

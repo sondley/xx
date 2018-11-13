@@ -3,12 +3,12 @@
 
 module.exports = {
   sequelize: {
-    database: process.env.DB_NAME || "fluttr",
-    password: process.env.DB_PASSWORD || "123",
-    username: process.env.DB_USERNAME || "postgres",
-    host: process.env.DB_HOST || "localhost",
-    port: process.env.DB_PORT || 5432,
-    dialect: "postgres",
+    database: process.env.DB_NAME || "sql10265064",
+    password: process.env.DB_PASSWORD || "czlbkA6aYF",
+    username: process.env.DB_USERNAME || "sql10265064",
+    host: process.env.DB_HOST || "sql10.freemysqlhosting.net",
+    port: process.env.DB_PORT || 3306,
+    dialect: "mysql",
     logging: false,
     // force: true,
     // sync: true

@@ -1,16 +1,16 @@
 "use strict";
 
 
-module.exports = Hashtags;
+module.exports = Articles;
 
 
 ////////////////////////////////////////////////////////////
 
 
-function Hashtags(sequelize, DataTypes) {
+function Articles(sequelize, DataTypes) {
 
-  var Hashtags = sequelize.define(
-    'Hashtags',
+  var Articles = sequelize.define(
+    'Articles',
     {
       id: {
         primaryKey: true,
@@ -22,6 +22,14 @@ function Hashtags(sequelize, DataTypes) {
       name: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      values: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      image: {
+        type: DataTypes.STRING,
+        allowNull: false
       }
     },
     {
@@ -31,5 +39,5 @@ function Hashtags(sequelize, DataTypes) {
     }
   );
 
-  return Hashtags;
+  return Articles;
 };
