@@ -5,11 +5,8 @@ const Hapi = require('hapi');
 const joi = require('joi');
 const Good = require('good');
 const Config = require('./config');
-const VideosHandler = require('./app/handlers/videos');
-const UsersHandler = require('./app/handlers/users');
+
 const UploadSingleFilePlugin = require('./app/plugins/upload-single-file');
-const CrudX = require('./app/plugins/crud-x');
-const AuthJwtX = require('./app/plugins/auth-jwt-x');
 const SequelizeX = require('./blocks/sequelize-x').initialize(Config.sequelize, Config.sequelize, Config.modelsDir);
 const server = new Hapi.Server();
 
