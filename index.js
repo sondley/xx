@@ -18,7 +18,7 @@ server.connection({
       headers: ["Accept", "Authorization", "Content-Type", "If-None-Match", "Accept-language"]
     }
   },
-  port: 8000
+  port: process.env.PORT || 5000
 });
 
 
